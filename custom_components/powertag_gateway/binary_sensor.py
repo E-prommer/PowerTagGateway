@@ -7,7 +7,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import CONF_CLIENT, DOMAIN
 from .entity_base import PowerTagEntity, tag_device_info, gateway_device_info, GatewayEntity
-from .schneider_modbus import SchneiderModbus, LinkStatus
+from .schneider_modbus import SchneiderModbus, PanelserverStatus
 
 
 async def async_setup_entry(
