@@ -25,16 +25,15 @@ class LineVoltage(enum.Enum):
     B_N = 10
     C_N = 12
 
-
-class LinkStatus(enum.Enum):
-    START_UP = 0b0001
-    OPERATING = 0b0010
-    DOWNGRADED = 0b0100
-    GENERAL_FAILURE = 0b1000
-    E2PROM_ERROR = 0b0010_0000_0000_1000
-    RAM_ERROR = 0b0100_0000_0000_1000
-    FLASH_ERROR = 0b1000_0000_0000_1000
-
+# Panelserver Status is different from gateway
+class PanelserverStatus(enum.Enum):
+    Nominal = 0b0000
+    Degraded = 0b0001
+    Outoforder = 0b0010
+    # GENERAL_FAILURE = 0b1000
+    # E2PROM_ERROR = 0b0010_0000_0000_1000
+    # RAM_ERROR = 0b0100_0000_0000_1000
+    # FLASH_ERROR = 0b1000_0000_0000_1000
 
 class AlarmStatus:
     def __init__(self, bitmask: int):
@@ -164,24 +163,31 @@ class SchneiderModbus:
         """
         return self.__read_string(0x0064, 6, POWERTAG_LINK_SLAVE_ID, 11)
 
-    def hardware_version_legacy(self) -> str:
-        """valid up to firmware version 001.008.007"""
-        return self.__read_string(0x006A, 3, POWERTAG_LINK_SLAVE_ID, 6)
+    # legacy no longer supported
+    #def hardware_version_legacy(self) -> str:
+    #    """valid up to firmware version 001.008.007"""
+    #    return self.__read_string(0x006A, 3, POWERTAG_LINK_SLAVE_ID, 6)
 
-    def firmware_version_legacy(self) -> str:
-        """valid up to firmware version 001.008.007"""
-        return self.__read_string(0x006D, 3, POWERTAG_LINK_SLAVE_ID, 6)
+    # legacy no longer supported
+    #def firmware_version_legacy(self) -> str:
+    #    """valid up to firmware version 001.008.007"""
+    #    return self.__read_string(0x006D, 3, POWERTAG_LINK_SLAVE_ID, 6)
 
     def firmware_version(self) -> str:
         """valid for firmware version 001.008.007 and later."""
         return self.__read_string(0x0078, 6, POWERTAG_LINK_SLAVE_ID, 11)
 
     # Status
+    #OLD
+    #def status(self) -> LinkStatus:
+    #    """PowerTag Link gateway status and diagnostic register"""
+    #    bitmap = self.__read_int_16(0x0070, POWERTAG_LINK_SLAVE_ID)
+    #    return LinkStatus(bitmap)
 
-    def status(self) -> LinkStatus:
+    def status(self) -> PanelserverStatus:
         """PowerTag Link gateway status and diagnostic register"""
-        bitmap = self.__read_int_16(0x0070, POWERTAG_LINK_SLAVE_ID)
-        return LinkStatus(bitmap)
+        bitmap = self.__read_int_16(0x009E, POWERTAG_LINK_SLAVE_ID)
+        return PanelserverStatus(bitmap)
 
     # Date and Time
 
