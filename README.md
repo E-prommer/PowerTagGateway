@@ -1,11 +1,15 @@
-# EcoStruxure PowerTag Link Gateway
+
+Forked from [Breina/PowerTagGateway](https://github.com/Breina/PowerTagGateway) To build EcoStruxure-Panel-Server compatible version.
+ [Schneider EcoStruxure Panel Server](https://www.se.com/be/nl/product-range/40739468-ecostruxure-panel-server/)
+
+ : A work in progress
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg)](https://github.com/hacs/integration)
 
 An integration to fully integrate Schneider's PowerTag ecosystem into Home Assistant.
 This will enable monitor electric circuits in great detail.
 
-## Features
+## Features   
 
 * **Current**: per phase and rated current
 * **Voltage**: per phase, total and rated voltage
@@ -73,7 +77,7 @@ To check whether this is the case, open the device's configuration webpage throu
 
 Navigate to _SETTINGS_ > _IP NETWORK SERVICES_
 
-![The IP services configuration](images/Web_config.png)
+![The IP services configuration](images/Web_config_PAS600.png)
 
 Check that the _MODBUS TCP_ service is enabled.
 Its port is set to 502 by default, if you diverge from this, **please keep your port number in mind for later**.
